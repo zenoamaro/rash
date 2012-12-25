@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+
+
 # Rash example schema
 # ===================
 
-# This is an example schema file. Use this as a
-# guide to build your own.
+# This is an example schema file. Use this as a guide to build your own.
+# Customize it and name it "schema.sh".
 
 
 
@@ -37,11 +39,9 @@ function format {
 # Just an optional example which sets some variables
 # in the global scope.
 function get_connection_params {
-	DB_HOST="localhost"
-	DB_PORT="3339"
-	DB_NAME="dbname"
-	DB_USER="root"
-	DB_PASS="somepassword"
+	local env=$1
+	CONF_USER="${env}-user"
+	CONF_PASS="..."
 }
 
 # **REQUIRED**: This will be called from the migration procedure
@@ -51,7 +51,7 @@ function get_connection_params {
 function setup {
 	local env=$1
 	get_connection_params $env
-	echo Using db $(bold DB_NAME) as $(bold ${DB_USER}@${DB_HOST})
+	echo Using env $(bold $env), auth $(bold ${CONF_USER})
 }
 
 # **REQUIRED**: This will be called from the migration procedure
@@ -78,7 +78,7 @@ function save_current_migration_step {
 # **REQUIRED**: Execute the migration step itself.
 # It will be passed the extract from the migration file.
 function execute_migration_step {
-	local query="$1"
-	# echo Something went wrong while executing $query
-	# return 1
+	local conf="$1"
+	command -u $CONF_USER -p $CONF_PASS <<< $query
+	return $?
 }
