@@ -45,3 +45,11 @@ function get_migration_step {
 		extract "$file" "$MIGRATION_DOWN_OPEN_TAG" "$MIGRATION_DOWN_CLOSE_TAG"
 	fi
 }
+
+# Placeholders for setup and teardown functions
+function setup {
+	true
+}
+function teardown {
+	true
+}
