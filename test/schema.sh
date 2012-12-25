@@ -1,1 +1,1 @@
-../schemas/example.sh
+../schemas/example.schema.sh

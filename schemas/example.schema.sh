@@ -40,8 +40,9 @@ function format {
 # in the global scope.
 function get_connection_params {
 	local env=$1
-	CONF_USER="${env}-user"
+	CONF_USER="maint-user"
 	CONF_PASS="..."
+	CONF_ENV="default"
 }
 
 # **REQUIRED**: This will be called from the migration procedure
@@ -51,7 +52,7 @@ function get_connection_params {
 function setup {
 	local env=$1
 	get_connection_params $env
-	echo Using env $(bold $env), auth $(bold ${CONF_USER})
+	echo Using env $(bold $CONF_ENV) as user $(bold ${CONF_USER})
 }
 
 # **REQUIRED**: This will be called from the migration procedure
@@ -79,6 +80,6 @@ function save_current_migration_step {
 # It will be passed the extract from the migration file.
 function execute_migration_step {
 	local conf="$1"
-	command -u $CONF_USER -p $CONF_PASS <<< $query
+	echo command -u $CONF_USER -p $CONF_PASS <<< $query
 	return $?
 }
