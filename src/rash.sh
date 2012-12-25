@@ -5,8 +5,8 @@
 
 ## A migration tool written in Bash.
 
-# This is a simple tool to perform ordered migrations step of whatever
-# it is needed, mainly small stuff, by the way of a simple config script.
+# This is a simple tool to perform ordered migrations steps of whatever nature,
+# requiring only the definition of a few functions in a schema script.
 #
 # Usage:
 #     rash [migration number]
